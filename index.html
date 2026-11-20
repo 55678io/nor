@@ -1,1 +1,4093 @@
-hj
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case-Management • FEDERAL TRADE COMMISSION</title>
+
+<style>
+:root{
+  --navy:#0b1f35;
+  --navy2:#123552;
+  --gold:#c8a34a;
+  --bg:#eef2f6;
+  --card:#fff;
+  --text:#172033;
+  --muted:#64748b;
+  --line:#dce3ea;
+  --blue:#2459a6;
+  --green:#198754;
+  --amber:#b7791f;
+  --red:#b42318;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Inter,"Segoe UI",Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+.demo-banner{
+  background:#fff7e6;
+  border-bottom:1px solid #e7c979;
+  color:#795b13;
+  text-align:center;
+  padding:9px 14px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.55px;
+}
+
+.demo-banner strong{
+  color:#6b4e00;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:245px;
+  background:var(--navy);
+  color:#dce8f4;
+  position:sticky;
+  top:0;
+  height:100vh;
+  padding:20px 14px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:4px 9px 22px;
+  border-bottom:1px solid #ffffff18;
+}
+
+.brand-logo{
+  width:40px;
+  height:40px;
+  border:1px solid #d6b55b;
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  color:#d6b55b;
+  font-weight:900;
+}
+
+.brand-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:8px;
+}
+
+.brand h1{
+  font-size:14px;
+  line-height:1.25;
+}
+
+.brand small{
+  display:block;
+  color:#8fa5bb;
+  font-size:10px;
+  margin-top:3px;
+}
+
+.nav{
+  padding-top:18px;
+}
+
+.nav-label{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#7690a8;
+  padding:0 10px 8px;
+}
+
+.nav button{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#b9c9d9;
+  text-align:left;
+  padding:11px 10px;
+  border-radius:7px;
+  margin:2px 0;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.nav button:hover,
+.nav button.active{
+  background:#ffffff12;
+  color:#fff;
+}
+
+.nav button.active{
+  box-shadow:inset 3px 0 var(--gold);
+}
+
+.side-bottom{
+  position:absolute;
+  bottom:18px;
+  left:14px;
+  right:14px;
+  border-top:1px solid #ffffff18;
+  padding-top:14px;
+  color:#7f95aa;
+  font-size:10px;
+  line-height:1.5;
+}
+
+/* MAIN */
+.main{
+  flex:1;
+  min-width:0;
+}
+
+.topbar{
+  height:90px;
+  background:#0b2a47;
+  color:#dce8f4;
+  border-bottom:4px solid #c8a34a;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 30px;
+  position:sticky;
+  top:0;
+  z-index:5;
+}
+
+.crumb{
+  font-size:12px;
+  color:#a9bfd2;
+}
+
+.crumb strong{
+  color:#fff;
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.icon-btn{
+  border:1px solid #31516d;
+  background:#123b5d;
+  border-radius:7px;
+  padding:8px 10px;
+  color:#fff;
+  cursor:pointer;
+}
+
+.user-chip{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  border-left:1px solid #31516d;
+  padding-left:14px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.user-chip img{
+  width:31px;
+  height:31px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #c8a34a;
+}
+
+.content{
+  padding:26px;
+  max-width:1250px;
+  margin:auto;
+}
+
+.page-title{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:flex-start;
+  margin-bottom:20px;
+}
+
+.page-title h2{
+  font-size:23px;
+}
+
+.page-title p{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.status-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  background:#eaf7ef;
+  color:#17663d;
+  border:1px solid #bfe3cd;
+  padding:7px 10px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#1b9a58;
+}
+
+/* CARDS */
+.grid{
+  display:grid;
+  gap:16px;
+}
+
+.stats{
+  grid-template-columns:repeat(4,1fr);
+  margin-bottom:16px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  box-shadow:0 4px 16px #12243a0b;
+}
+
+.stat{
+  padding:18px;
+}
+
+.stat .label{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  color:#7b8796;
+  font-weight:800;
+}
+
+.stat .num{
+  font-size:25px;
+  font-weight:800;
+  margin-top:8px;
+}
+
+.stat .sub{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.layout{
+  grid-template-columns:minmax(0,1.55fr) minmax(300px,.8fr);
+}
+
+.card-head{
+  padding:16px 18px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.card-head h3{
+  font-size:13px;
+}
+
+.card-head span{
+  font-size:10px;
+  color:var(--muted);
+}
+
+.card-body{
+  padding:18px;
+}
+
+/* OVERVIEW */
+.overview{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+}
+
+.field{
+  padding:12px;
+  background:#f8fafc;
+  border:1px solid #e7edf2;
+  border-radius:7px;
+}
+
+.field label{
+  display:block;
+  color:#8290a0;
+  text-transform:uppercase;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.7px;
+  margin-bottom:5px;
+}
+
+.field b{
+  font-size:12px;
+}
+
+.progress{
+  margin-top:16px;
+}
+
+.progress-row{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.bar{
+  height:8px;
+  background:#e7edf3;
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.bar i{
+  display:block;
+  width:72%;
+  height:100%;
+  background:#2459a6;
+  border-radius:99px;
+}
+
+/* TIMELINE */
+.timeline{
+  list-style:none;
+}
+
+.timeline li{
+  position:relative;
+  padding:0 0 19px 25px;
+}
+
+.timeline li:before{
+  content:"";
+  position:absolute;
+  left:4px;
+  top:3px;
+  width:9px;
+  height:9px;
+  background:#2459a6;
+  border:2px solid #dbe7f7;
+  border-radius:50%;
+}
+
+.timeline li:after{
+  content:"";
+  position:absolute;
+  left:8px;
+  top:13px;
+  width:1px;
+  height:calc(100% - 7px);
+  background:#d9e2eb;
+}
+
+.timeline li:last-child:after{
+  display:none;
+}
+
+.timeline time{
+  font-size:9px;
+  color:#8794a3;
+}
+
+.timeline strong{
+  display:block;
+  font-size:11px;
+  margin-top:3px;
+}
+
+.timeline p{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:3px;
+  line-height:1.4;
+}
+
+/* PROFILE */
+.profile{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.profile img{
+  width:84px;
+  height:84px;
+  border-radius:9px;
+  object-fit:cover;
+  border:3px solid #d9e2ea;
+}
+
+.profile h3{
+  font-size:16px;
+}
+
+.profile p{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.tag{
+  display:inline-block;
+  margin-top:8px;
+  background:#edf3fa;
+  color:#315b87;
+  border-radius:4px;
+  padding:4px 7px;
+  font-size:9px;
+  font-weight:800;
+}
+
+.details{
+  margin-top:16px;
+  border-top:1px solid var(--line);
+  padding-top:14px;
+}
+
+.drow{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:7px 0;
+  font-size:10px;
+}
+
+.drow span{
+  color:var(--muted);
+}
+
+/* EVIDENCE */
+.evidence{
+  grid-template-columns:repeat(3,1fr);
+  margin-top:16px;
+}
+
+.e-card{
+  padding:15px;
+}
+
+.e-icon{
+  width:34px;
+  height:34px;
+  border-radius:7px;
+  background:#eef4fb;
+  color:#2459a6;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  margin-bottom:10px;
+}
+
+.e-card h4{
+  font-size:12px;
+}
+
+.e-card p{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.e-status{
+  margin-top:11px;
+  font-size:9px;
+  font-weight:800;
+  color:#17663d;
+}
+
+/* ANALYTICS */
+.analytics{
+  grid-template-columns:1fr 1fr;
+  margin-top:16px;
+}
+
+.bars{
+  height:150px;
+  display:flex;
+  align-items:flex-end;
+  gap:12px;
+  padding:10px 6px 0;
+}
+
+.bars div{
+  flex:1;
+  text-align:center;
+  font-size:9px;
+  color:var(--muted);
+}
+
+.bars i{
+  display:block;
+  width:100%;
+  background:#6b8db5;
+  border-radius:4px 4px 0 0;
+  margin-bottom:5px;
+}
+
+.legend{
+  display:flex;
+  gap:16px;
+  font-size:9px;
+  color:var(--muted);
+  margin-top:10px;
+}
+
+/* TASKS */
+.tasks{
+  list-style:none;
+}
+
+.tasks li{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:11px 0;
+  border-bottom:1px solid #edf1f4;
+  font-size:10px;
+}
+
+.tasks li:last-child{
+  border:0;
+}
+
+.task-title{
+  font-weight:700;
+}
+
+.task-meta{
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.priority{
+  font-size:9px;
+  font-weight:800;
+  padding:4px 6px;
+  border-radius:4px;
+  background:#fff3e0;
+  color:#9a5a00;
+  height:max-content;
+}
+
+.priority.normal{
+  background:#eef6ff;
+  color:#315b87;
+}
+
+/* DOCUMENTS */
+.documents{
+  margin-top:16px;
+}
+
+.doc-row{
+  display:grid;
+  grid-template-columns:1fr 110px 100px 80px;
+  gap:10px;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid #edf1f4;
+  font-size:10px;
+}
+
+.doc-row:last-child{
+  border:0;
+}
+
+.doc-name{
+  font-weight:700;
+}
+
+.doc-type,
+.doc-date{
+  color:var(--muted);
+}
+
+.btn{
+  border:1px solid #cfd9e2;
+  background:#fff;
+  border-radius:6px;
+  padding:6px 9px;
+  font-size:9px;
+  font-weight:800;
+  color:#315b87;
+  cursor:pointer;
+}
+
+/* NOTES */
+.notes{
+  margin-top:16px;
+}
+
+.note{
+  padding:12px;
+  border:1px solid #e4eaf0;
+  background:#fbfcfd;
+  border-radius:7px;
+  margin-bottom:9px;
+}
+
+.note strong{
+  font-size:10px;
+}
+
+.note span{
+  font-size:9px;
+  color:var(--muted);
+  float:right;
+}
+
+.note p{
+  font-size:10px;
+  line-height:1.5;
+  color:#526173;
+  margin-top:5px;
+}
+
+/* FEATURES */
+.feature-section{
+  margin-top:16px;
+}
+
+.task-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.task-item{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px;
+  border:1px solid #e4eaf0;
+  border-radius:8px;
+  background:#fbfcfd;
+}
+
+.task-item b{
+  display:block;
+  font-size:11px;
+}
+
+.task-item small{
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.related-row,
+.audit-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid #edf1f4;
+  font-size:10px;
+}
+
+.related-row:last-child,
+.audit-row:last-child{
+  border-bottom:0;
+}
+
+.related-row span,
+.audit-row span{
+  color:var(--muted);
+}
+
+/* HEALTH */
+.health-row{
+  display:flex;
+  justify-content:space-between;
+  font-size:10px;
+  font-weight:700;
+  margin:9px 0 5px;
+}
+
+.health-row b{
+  color:var(--blue);
+}
+
+.health-row+.bar{
+  margin-bottom:13px;
+}
+
+/* CONTACTS */
+.contact-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.contact{
+  padding:14px;
+  background:#f8fafc;
+  border:1px solid #e7edf2;
+  border-radius:8px;
+}
+
+.contact span{
+  display:block;
+  font-size:8px;
+  color:#8290a0;
+  font-weight:900;
+  letter-spacing:.7px;
+}
+
+.contact b{
+  display:block;
+  font-size:11px;
+  margin-top:6px;
+}
+
+.contact small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:3px;
+}
+
+.quick-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.notification{
+  padding:11px 0;
+  border-bottom:1px solid #edf1f4;
+}
+
+.notification:last-child{
+  border:0;
+}
+
+.notification b{
+  display:block;
+  font-size:10px;
+}
+
+.notification small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:3px;
+}
+
+/* VICTIM */
+.victim-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.victim-banner{
+  margin-bottom:16px;
+  padding:12px 14px;
+  border-left:3px solid var(--gold);
+  background:#fffaf0;
+  border-radius:0 7px 7px 0;
+  color:#73591a;
+  font-size:10px;
+  font-weight:700;
+}
+
+/* SECURITY */
+.security-summary{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:16px;
+}
+
+.security-summary .field{
+  background:#fff;
+}
+
+.security-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.security-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 4px 16px #12243a0b;
+}
+
+.security-card .sec-head{
+  padding:15px 16px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.security-card .sec-head h3{
+  font-size:13px;
+}
+
+.sec-badge{
+  font-size:8px;
+  font-weight:900;
+  padding:4px 7px;
+  border-radius:20px;
+  background:#eaf7ef;
+  color:#17663d;
+}
+
+.sec-body{
+  padding:16px;
+}
+
+.sec-row{
+  margin-bottom:13px;
+}
+
+.sec-row:last-child{
+  margin-bottom:0;
+}
+
+.sec-label{
+  display:flex;
+  justify-content:space-between;
+  font-size:9px;
+  font-weight:800;
+  color:#718094;
+  margin-bottom:5px;
+}
+
+.sec-label b{
+  color:var(--blue);
+}
+
+.security-bar{
+  height:7px;
+  background:#e8edf2;
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.security-bar i{
+  display:block;
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#2459a6,#6b8db5);
+  border-radius:99px;
+  animation:fillBar 1.4s ease-out forwards;
+}
+
+.security-card:nth-child(2) .security-bar i{
+  background:linear-gradient(90deg,#198754,#57a77f);
+}
+
+.security-card:nth-child(3) .security-bar i{
+  background:linear-gradient(90deg,#b7791f,#d6aa54);
+}
+
+@keyframes fillBar{
+  from{width:0}
+  to{width:var(--w)}
+}
+
+.security-detail{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:15px;
+}
+
+.security-detail div{
+  padding:9px;
+  background:#f8fafc;
+  border:1px solid #e7edf2;
+  border-radius:6px;
+}
+
+.security-detail span{
+  display:block;
+  font-size:8px;
+  color:#8290a0;
+  text-transform:uppercase;
+  font-weight:800;
+}
+
+.security-detail b{
+  display:block;
+  font-size:10px;
+  margin-top:3px;
+}
+
+.risk-low{
+  color:var(--green)!important;
+}
+
+/* FOOTER */
+.footer{
+  background:#0b2a47;
+  color:#a9bfd2;
+  min-height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px 28px;
+  border-top:4px solid #c8a34a;
+  font-size:11px;
+  line-height:1.5;
+  text-align:center;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#07111fb8;
+  z-index:100;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal.open{
+  display:flex;
+}
+
+.modal-box{
+  width:min(520px,100%);
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 30px 80px #0007;
+  overflow:hidden;
+}
+
+.modal-head{
+  padding:15px 18px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+}
+
+.modal-head b{
+  font-size:13px;
+}
+
+.modal-body{
+  padding:20px;
+}
+
+.modal-body p{
+  font-size:11px;
+  line-height:1.6;
+  color:#526173;
+}
+
+.close{
+  border:0;
+  background:none;
+  font-size:20px;
+  cursor:pointer;
+  color:#64748b;
+}
+
+/* SEARCH */
+.global-search{
+  position:relative;
+  width:min(320px,28vw);
+}
+
+.global-search>span{
+  position:absolute;
+  left:10px;
+  top:8px;
+  color:#8290a0;
+}
+
+.global-search input{
+  width:100%;
+  height:34px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  padding:0 10px 0 28px;
+  font-size:11px;
+  outline:none;
+}
+
+.search-results{
+  display:none;
+  position:absolute;
+  top:39px;
+  left:0;
+  right:0;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  box-shadow:0 15px 35px #0002;
+  z-index:30;
+  overflow:hidden;
+}
+
+.search-results div{
+  padding:10px 12px;
+  font-size:10px;
+  border-bottom:1px solid #edf1f4;
+  cursor:pointer;
+}
+
+.search-results div:hover{
+  background:#f6f9fc;
+}
+
+/* VERIFICATION GATE */
+#verificationGate{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:linear-gradient(
+    135deg,
+    #071a2d 0%,
+    #0d2b49 55%,
+    #123b5d 100%
+  );
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+
+.gate-card{
+  width:min(470px,100%);
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 28px 80px rgba(0,0,0,.45);
+  overflow:hidden;
+}
+
+.gate-head{
+  background:#0b2a47;
+  color:#fff;
+  padding:30px 30px 26px;
+  text-align:center;
+  border-bottom:4px solid #c8a34a;
+}
+
+.gate-mark{
+  width:58px;
+  height:58px;
+  margin:0 auto 14px;
+  border:2px solid #d9b85d;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  color:#d9b85d;
+  font-weight:900;
+  font-size:19px;
+}
+
+.gate-mark img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:9px;
+}
+
+.gate-head h1{
+  font-size:20px;
+  letter-spacing:.3px;
+}
+
+.gate-head p{
+  font-size:11px;
+  color:#b9cada;
+  margin-top:7px;
+  line-height:1.5;
+}
+
+.gate-body{
+  padding:30px;
+}
+
+.gate-label{
+  display:block;
+  font-size:11px;
+  font-weight:800;
+  color:#475569;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  margin-bottom:8px;
+}
+
+.gate-input{
+  width:100%;
+  height:48px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  padding:0 14px;
+  font-size:16px;
+  letter-spacing:1.5px;
+  outline:none;
+}
+
+.gate-input:focus{
+  border-color:#2459a6;
+  box-shadow:0 0 0 3px rgba(36,89,166,.1);
+}
+
+.verify-btn{
+  width:100%;
+  height:48px;
+  margin-top:14px;
+  border:0;
+  border-radius:8px;
+  background:#123b5d;
+  color:#fff;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.7px;
+  cursor:pointer;
+}
+
+.verify-btn:hover{
+  background:#0b2a47;
+}
+
+.gate-msg{
+  min-height:20px;
+  margin-top:10px;
+  text-align:center;
+  font-size:11px;
+  color:#b42318;
+  font-weight:700;
+}
+
+.gate-note{
+  margin-top:20px;
+  padding:11px 12px;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:7px;
+  font-size:10px;
+  line-height:1.5;
+  color:#64748b;
+  text-align:center;
+}
+
+/* LOADER */
+.loader-ring{
+  width:58px;
+  height:58px;
+  margin:0 auto;
+  border:4px solid #dbe5ee;
+  border-top-color:#123b5d;
+  border-right-color:#c8a34a;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+.load-track{
+  height:7px;
+  background:#e8eef3;
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:18px;
+}
+
+.load-track i{
+  display:block;
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,#123b5d,#c8a34a);
+  transition:width .25s;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* MOBILE */
+.mobile-menu{
+  display:none;
+}
+
+@media(max-width:950px){
+
+  .sidebar{
+    width:210px;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .layout,
+  .analytics{
+    grid-template-columns:1fr;
+  }
+
+  .evidence{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .security-grid{
+    grid-template-columns:1fr;
+  }
+
+  .victim-grid,
+  .security-summary{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:700px){
+
+  .sidebar{
+    display:none;
+    position:fixed;
+    left:0;
+    top:0;
+    z-index:30;
+    width:260px;
+    box-shadow:10px 0 35px #0004;
+  }
+
+  .mobile-menu{
+    display:inline-block;
+  }
+
+  .content{
+    padding:18px 14px;
+  }
+
+  .topbar{
+    padding:0 14px;
+  }
+
+  .user-chip span{
+    display:none;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .overview,
+  .evidence,
+  .victim-grid,
+  .security-summary{
+    grid-template-columns:1fr;
+  }
+
+  .task-grid,
+  .contact-grid{
+    grid-template-columns:1fr;
+  }
+
+  .global-search{
+    display:none;
+  }
+
+  .page-title{
+    align-items:flex-start;
+  }
+
+  .page-title h2{
+    font-size:19px;
+  }
+
+  .doc-row{
+    grid-template-columns:1fr 80px;
+  }
+
+  .doc-row .doc-type,
+  .doc-row .doc-date{
+    display:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- FICTIONAL DISCLOSURE -->
+<div class="demo-banner">
+  FEDERAL TRADE COMMISSION •
+  <strong> AN OFFICIAL GOVERNMENT AND LAW-ENFORCEMENT RECORD</strong>
+  • UNITED STATES OF AMERICA🇺🇸
+</div>
+
+<!-- VERIFICATION SCREEN -->
+<div id="verificationGate">
+
+  <div class="gate-card">
+
+    <div class="gate-head">
+
+      <div class="gate-mark">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/FTC_logo_-_blue.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="Dolly demo logo">
+      </div>
+
+<h1>FEDERAL TRADE COMMISSION</h1>
+
+      <p>
+         • Case verification •
+      </p>
+
+    </div>
+
+    <div class="gate-body">
+
+      <!-- CASE ID -->
+      <div id="caseStep">
+
+        <label
+          class="gate-label"
+          for="caseIdInput"
+        >
+          Enter Case ID
+        </label>
+
+        <input
+          id="caseIdInput"
+          class="gate-input"
+          inputmode="numeric"
+          autocomplete="off"
+          placeholder="e.g. 867876"
+          maxlength="6"
+        >
+
+        <button
+          class="verify-btn"
+          onclick="verifyCase()"
+        >
+          VERIFY CASE ID
+        </button>
+
+        <div
+          id="gateMsg"
+          class="gate-msg"
+        ></div>
+
+        <div class="gate-note">
+          valid and active case  accepts only:
+          <strong>123456</strong>,
+          <strong>789767</strong>,
+          or
+          <strong>484888</strong>.
+        </div>
+
+      </div>
+
+      <!-- SECURITY CODE -->
+      <div
+        id="codeStep"
+        style="display:none"
+      >
+
+        <label
+          class="gate-label"
+          for="securityCodeInput"
+        >
+          Security Code
+        </label>
+
+        <input
+          id="securityCodeInput"
+          class="gate-input"
+          type="password"
+          autocomplete="off"
+          placeholder="Enter security code"
+          maxlength="6"
+        >
+
+        <button
+          class="verify-btn"
+          onclick="verifySecurityCode()"
+        >
+          VERIFY SECURITY CODE
+        </button>
+
+        <div
+          id="codeMsg"
+          class="gate-msg"
+        ></div>
+
+        <div class="gate-note">
+          Second-step verification for case-556221.
+        </div>
+
+      </div>
+
+      <!-- LOADING -->
+      <div
+        id="loadingStep"
+        style="display:none;text-align:center"
+      >
+
+        <div class="loader-ring"></div>
+
+        <h3
+          style="
+            font-size:15px;
+            margin-top:16px;
+          "
+        >
+          Verifying  Case
+        </h3>
+
+        <p
+          id="loadingText"
+          style="
+            font-size:10px;
+            color:#64748b;
+            margin-top:7px;
+          "
+        >
+          Preparing secure  session...
+        </p>
+
+        <div class="load-track">
+          <i id="loadBar"></i>
+        </div>
+
+        <div
+          id="loadPercent"
+          style="
+            font-size:11px;
+            font-weight:800;
+            color:#123b5d;
+            margin-top:8px;
+          "
+        >
+          0%
+        </div>
+
+        <div class="gate-note">
+           loading sequence: 30 seconds.
+          federal's external system and  government database is contacted.
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- APPLICATION -->
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="brand">
+
+      <div class="brand-logo">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/b/b0/FTC_logo_-_blue.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original"
+          alt="Dolly demo logo"
+        >
+      </div>
+
+      <div>
+        <h1>FEDERAL TRADE COMMISSION</h1>
+        <small>
+           Case Management Portal
+        </small>
+      </div>
+
+    </div>
+
+    <nav class="nav">
+
+      <div class="nav-label">
+        Workspace
+      </div>
+
+      <button
+        class="active"
+        onclick="show('overview',this)"
+      >
+        ▦ &nbsp; Command Center
+      </button>
+
+      <button
+        onclick="show('timeline',this)"
+      >
+        ◷ &nbsp; Case Timeline
+      </button>
+
+      <button
+        onclick="show('evidence',this)"
+      >
+        ▣ &nbsp; Evidence Vault
+      </button>
+
+      <button
+        onclick="show('documents',this)"
+      >
+        ▤ &nbsp; Documents
+      </button>
+
+      <button
+        onclick="show('notes',this)"
+      >
+        ✎ &nbsp; Investigator Notes
+      </button>
+
+      <button
+        onclick="show('tasks',this)"
+      >
+        ☑ &nbsp; Open Actions
+      </button>
+
+      <button
+        onclick="show('related',this)"
+      >
+        ↔ &nbsp; Related Cases
+      </button>
+
+      <button
+        onclick="show('contacts',this)"
+      >
+        ♙ &nbsp; Parties & Contacts
+      </button>
+
+      <button
+        onclick="show('victim',this)"
+      >
+        ◈ &nbsp;  Victim Record
+      </button>
+
+      <button
+        onclick="show('security',this)"
+      >
+        ◉ &nbsp; Security Overview
+      </button>
+
+      <button
+        onclick="show('activity',this)"
+      >
+        ◉ &nbsp; Activity Log
+      </button>
+
+      <div
+        class="nav-label"
+        style="margin-top:18px"
+      >
+        Administration
+      </div>
+
+      <button
+        onclick="openModal('Access Log')"
+      >
+        ◉ &nbsp; Access Log
+      </button>
+
+    </nav>
+
+    <div class="side-bottom">
+      SERVER #101.
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+      <div class="crumb">
+
+        <button
+          class="icon-btn mobile-menu"
+          onclick="toggleSide()"
+        >
+          ☰
+        </button>
+
+        &nbsp;
+
+        Cases /
+        <strong>
+          Case
+          <span class="case-id-display">
+            556221
+          </span>
+        </strong>
+
+      </div>
+
+
+      <div class="top-actions">
+
+        <!-- SEARCH -->
+        <div class="global-search">
+
+          <span>⌕</span>
+
+          <input
+            id="globalSearch"
+            oninput="globalSearchItems()"
+            placeholder="Search case, evidence, documents..."
+            autocomplete="off"
+          >
+
+          <div
+            id="searchResults"
+            class="search-results"
+          ></div>
+
+        </div>
+
+
+        <!-- NOTIFICATIONS -->
+        <button
+          class="icon-btn"
+          onclick="openNotifications()"
+        >
+          ♢
+          <span id="notifCount">3</span>
+        </button>
+
+
+        <div class="session-chip">
+          SESSION <b>556221</b>
+        </div>
+
+
+        <!-- USER -->
+        <div class="user-chip">
+
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/b/b0/FTC_logo_-_blue.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original"
+            alt="Demo officer"
+          >
+
+          <span>
+             Officer
+          </span>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- CONTENT -->
+    <section class="content">
+
+
+      <!-- PAGE TITLE -->
+      <div
+        id="pageTitle"
+        class="page-title"
+      >
+
+        <div>
+
+          <h2>
+            Case Command Center
+          </h2>
+
+          <p>
+            556221 case workspace •
+            Last updated November 20, 2026
+          </p>
+
+        </div>
+
+        <div class="status-pill">
+
+          <i class="dot"></i>
+
+          ACTIVE CASE
+
+        </div>
+
+      </div>
+
+
+      <!-- STATS -->
+      <div
+        id="statsBlock"
+        class="grid stats"
+      >
+
+        <div class="card stat">
+
+          <div class="label">
+            Case Progress
+          </div>
+
+          <div class="num">
+            39%
+          </div>
+
+          <div class="sub">
+            18 of 25 review items
+          </div>
+
+        </div>
+
+
+        <div class="card stat">
+
+          <div class="label">
+            Evidence Items
+          </div>
+
+          <div class="num">
+            25
+          </div>
+
+          <div class="sub">
+            18 reviewed • 7 pending
+          </div>
+
+        </div>
+
+
+        <div class="card stat">
+
+          <div class="label">
+            Open Actions
+          </div>
+
+          <div class="num">
+            4
+          </div>
+
+          <div class="sub">
+            2 high priority
+          </div>
+
+        </div>
+
+
+        <div class="card stat">
+
+          <div class="label">
+            Last Activity
+          </div>
+
+          <div
+            class="num"
+            style="font-size:18px"
+          >
+            02:41
+          </div>
+
+          <div class="sub">
+            Nov 17, 2026
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- OVERVIEW -->
+      <div
+        id="overview"
+        data-section="overview"
+        class="grid layout"
+      >
+
+        <div class="card">
+
+          <div class="card-head">
+
+            <h3>
+              Case Overview
+            </h3>
+
+            <span>
+              CASE
+              <span class="case-id-display">
+                556221
+              </span>
+            </span>
+
+          </div>
+
+          <div class="card-body">
+
+            <div class="overview">
+
+              <div class="field">
+                <label>Case status</label>
+                <b>Active — Under Review</b>
+              </div>
+
+              <div class="field">
+                <label>Priority</label>
+                <b>High</b>
+              </div>
+
+              <div class="field">
+                <label>Assigned officer</label>
+                <b>Logan C Hunt</b>
+              </div>
+
+              <div class="field">
+                <label>Assignment date</label>
+                <b>November 02, 2026</b>
+              </div>
+
+              <div class="field">
+                <label>Case category</label>
+                <b>Financial / Digital Review</b>
+              </div>
+
+              <div class="field">
+                <label>Environment</label>
+                <b> USA 🇺🇸 FEDERAL SERVER 809</b>
+              </div>
+
+            </div>
+
+
+            <div class="progress">
+
+              <div class="progress-row">
+
+                <span>
+                  Investigation progress
+                </span>
+
+                <span>
+                  38%
+                </span>
+
+              </div>
+
+              <div class="bar">
+                <i></i>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- OFFICER -->
+        <div class="card">
+
+          <div class="card-head">
+
+            <h3>
+              Assigned Officer
+            </h3>
+
+            <span>
+              PROFILE
+            </span>
+
+          </div>
+
+          <div class="card-body">
+
+            <div class="profile">
+
+              <img
+                src="https://pngtree.com/freepng/man-profile-icon-silhouette-of-businessman-face-profile-vector_15914954.html"
+                alt="Demo officer profile"
+              >
+
+              <div>
+
+                <h3>
+                  Logan C Hunt
+                </h3>
+
+                <p>
+                  FTC Case Officer
+                </p>
+
+                <span class="tag">
+                   PROFILE
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="details">
+
+              <div class="drow">
+                <span>Officer ID</span>
+                <b>EMC1978FTC</b>
+              </div>
+
+              <div class="drow">
+                <span>Assignment</span>
+                <b>Primary Investigator</b>
+              </div>
+
+              <div class="drow">
+                <span>Clearance</span>
+                <b>Level 3 • </b>
+              </div>
+
+              <div class="drow">
+                <span>Current status</span>
+                <b style="color:var(--green)">
+                  Available
+                </b>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- TIMELINE -->
+      <div
+        id="timeline"
+        data-section="timeline"
+        class="grid layout"
+        style="margin-top:16px"
+      >
+
+        <div class="card">
+
+          <div class="card-head">
+
+            <h3>
+              Investigation Timeline
+            </h3>
+
+            <span>
+              RECENT ACTIVITY
+            </span>
+
+          </div>
+
+          <div class="card-body">
+
+            <ul class="timeline">
+
+              <li>
+
+                <time>
+                  Nov 15, 2026 • 02:41
+                </time>
+
+                <strong>
+                  Case workspace updated
+                </strong>
+
+                <p>
+                   case record synchronized
+                  with the latest  review activity.
+                </p>
+
+              </li>
+
+
+              <li>
+
+                <time>
+                  Nov 11, 2026 • 16:20
+                </time>
+
+                <strong>
+                  Evidence package reviewed
+                </strong>
+
+                <p>
+                  Three digital evidence items
+                  moved to reviewed status.
+                </p>
+
+              </li>
+
+
+              <li>
+
+                <time>
+                  Nov 04, 2026 • 11:05
+                </time>
+
+                <strong>
+                  Investigator notes added
+                </strong>
+
+                <p>
+                  Review observations were added
+                  to the case record.
+                </p>
+
+              </li>
+
+
+              <li>
+
+                <time>
+                  Oct 27, 2026 • 09:32
+                </time>
+
+                <strong>
+                  Document set received
+                </strong>
+
+                <p>
+                  Initial  document package
+                  was added to the workspace.
+                </p>
+
+              </li>
+
+
+              <li>
+
+                <time>
+                  Oct 30, 2026 • 14:10
+                </time>
+
+                <strong>
+                  Case assigned
+                </strong>
+
+                <p>
+                  Case 556221 was assigned to
+                  the  primary investigator.
+                </p>
+
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="card-head">
+
+            <h3>
+              Open Actions
+            </h3>
+
+            <span>
+              4 ITEMS
+            </span>
+
+          </div>
+
+          <div class="card-body">
+
+            <ul class="tasks">
+
+              <li>
+                <div>
+                  <div class="task-title">
+                    Review  records
+                  </div>
+                  <div class="task-meta">
+                    Due Nov 16 •  
+                  </div>
+                </div>
+
+                <span class="priority">
+                  HIGH
+                </span>
+              </li>
+
+
+              <li>
+                <div>
+                  <div class="task-title">
+                    Verify evidence index
+                  </div>
+                  <div class="task-meta">
+                    Due Nov 17 •  
+                  </div>
+                </div>
+
+                <span class="priority">
+                  HIGH
+                </span>
+              </li>
+
+
+              <li>
+                <div>
+                  <div class="task-title">
+                    Update case notes
+                  </div>
+                  <div class="task-meta">
+                    Due Nov 18 • security task
+                  </div>
+                </div>
+
+                <span class="priority normal">
+                  NORMAL
+                </span>
+              </li>
+
+
+              <li>
+                <div>
+                  <div class="task-title">
+                    Prepare review summary
+                  </div>
+                  <div class="task-meta">
+                    Due Nov 20 •  task
+                  </div>
+                </div>
+
+                <span class="priority normal">
+                  NORMAL
+                </span>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- EVIDENCE -->
+      <div
+        id="evidence"
+        data-section="evidence"
+        class="grid evidence"
+      >
+
+        <div class="card e-card">
+
+          <div class="e-icon">
+            DF
+          </div>
+
+          <h4>
+            Digital Evidence
+          </h4>
+
+          <p>
+            12 items • 9 reviewed
+          </p>
+
+          <div class="e-status">
+            ● REVIEWED
+          </div>
+
+        </div>
+
+
+        <div class="card e-card">
+
+          <div class="e-icon">
+            FR
+          </div>
+
+          <h4>
+            Financial Records
+          </h4>
+
+          <p>
+            6 items • 3 reviewed
+          </p>
+
+          <div
+            class="e-status"
+            style="color:var(--amber)"
+          >
+            ● PARTIALLY REVIEWED
+          </div>
+
+        </div>
+
+
+        <div class="card e-card">
+
+          <div class="e-icon">
+            IR
+          </div>
+
+          <h4>
+            Incident Reports
+          </h4>
+
+          <p>
+            7 items • 6 reviewed
+          </p>
+
+          <div class="e-status">
+            ● REVIEWED
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- DOCUMENTS -->
+      <div
+        id="documents"
+        data-section="documents"
+        class="card documents"
+      >
+
+        <div class="card-head">
+
+          <h3>
+            Document Center
+          </h3>
+
+          <span>
+            8  DOCUMENTS
+          </span>
+
+        </div>
+
+        <div class="card-body">
+
+          <div
+            class="doc-row"
+            style="font-weight:800;color:#7b8796"
+          >
+            <div>DOCUMENT</div>
+            <div class="doc-type">TYPE</div>
+            <div class="doc-date">DATE</div>
+            <div></div>
+          </div>
+
+
+          <div class="doc-row">
+
+            <div class="doc-name">
+              Case Assignment Record
+            </div>
+
+            <div class="doc-type">
+              Record
+            </div>
+
+            <div class="doc-date">
+              Nov 19
+            </div>
+
+            <button
+              class="btn"
+              onclick="openModal('Case Assignment Record')"
+            >
+              VIEW
+            </button>
+
+          </div>
+
+
+          <div class="doc-row">
+
+            <div class="doc-name">
+              Evidence Index
+            </div>
+
+            <div class="doc-type">
+              Index
+            </div>
+
+            <div class="doc-date">
+              Niv 27
+            </div>
+
+            <button
+              class="btn"
+              onclick="openModal('Evidence Index')"
+            >
+              VIEW
+            </button>
+
+          </div>
+
+
+          <div class="doc-row">
+
+            <div class="doc-name">
+              Investigation Summary
+            </div>
+
+            <div class="doc-type">
+              Summary
+            </div>
+
+            <div class="doc-date">
+              Nov 11
+            </div>
+
+            <button
+              class="btn"
+              onclick="openModal('Investigation Summary')"
+            >
+              VIEW
+            </button>
+
+          </div>
+
+
+          <div class="doc-row">
+
+            <div class="doc-name">
+              Officer Notes
+            </div>
+
+            <div class="doc-type">
+              Notes
+            </div>
+
+            <div class="doc-date">
+              Nov 15
+            </div>
+
+            <button
+              class="btn"
+              onclick="openModal('Officer Notes')"
+            >
+              VIEW
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- NOTES -->
+      <div
+        id="notes"
+        data-section="notes"
+        class="card notes"
+      >
+
+        <div class="card-head">
+
+          <h3>
+            Investigator Notes
+          </h3>
+
+          <button
+            class="btn"
+            onclick="openModal('Add  Note')"
+          >
+            on very healty stage in case 556221 for now -Logan Hunt
+          </button>
+
+        </div>
+
+        <div class="card-body">
+
+          <div class="note">
+
+            <strong>
+              Review checkpoint
+            </strong>
+
+            <span>
+              Nov 15, 02:41
+            </span>
+
+            <p>
+              Priority review items remain open.
+            </p>
+
+          </div>
+
+
+          <div class="note">
+
+            <strong>
+              Evidence observation
+            </strong>
+
+            <span>
+              Nov 11, 16:20
+            </span>
+
+            <p>
+              Digital evidence package marked
+              partially reviewed pending case
+              follow-up documentation.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- TASKS -->
+      <div
+        id="tasks"
+        data-section="tasks"
+        class="card feature-section"
+      >
+
+        <div class="card-head">
+
+          <h3>
+            Open Actions
+          </h3>
+
+          <span>
+            4  TASKS
+          </span>
+
+        </div>
+
+        <div class="card-body">
+
+          <div class="task-grid">
+
+            <div class="task-item">
+
+              <div>
+                <b>
+                  Review financial records
+                </b>
+
+                <small>
+                  Due Nov 16 • Assigned to  Officer
+                </small>
+              </div>
+
+              <span class="priority">
+                HIGH
+              </span>
+
+            </div>
+
+
+            <div class="task-item">
+
+              <div>
+                <b>
+                  Verify evidence index
+                </b>
+
+                <small>
+                  Due Nov 17 • Evidence Team
+                </small>
+              </div>
+
+              <span class="priority">
+                HIGH
+              </span>
+
+            </div>
+
+
+            <div class="task-item">
+
+              <div>
+                <b>
+                  Update case notes
+                </b>
+
+                <small>
+                  Due Nov 20 • security Officer
+                </small>
+              </div>
+
+              <span class="priority normal">
+                NORMAL
+              </span>
+
+            </div>
+
+
+            <div class="task-item">
+
+              <div>
+                <b>
+                  Prepare review summary
+                </b>
+
+                <small>
+                  Due Nov 20 • Security Analyst
+                </small>
+              </div>
+
+              <span class="priority normal">
+                NORMAL
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- RELATED -->
+      <div
+        id="related"
+        data-section="related"
+        class="grid layout feature-section"
+      >
+
+        <div class="card">
+
+          <div class="card-head">
+
+            <h3>
+              Related Cases
+            </h3>
+
+            <span>
+               LINKS
+            </span>
+
+          </div>
+
+          <div class="card-body">
+
+            <div class="related-row">
+
+              <b>
+                778249
+              </b>
+
+              <span>
+                Related review
+              </span>
+
+              <button
+                class="btn"
+                onclick="switchCase('778249')"
+              >
+                VIEW
+              </button>
+
+            </div>
+
+
+            <div class="related-row">
+
+              <b>
+                997204
+              </b>
+
+              <span>
+                Reference case
+              </span>
+
+              <button
+                class="btn"
+                onclick="switchCase('997204')"
+              >
+                VIEW
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="card-head">
+
+            <h3>
+              Case Health
+            </h3>
+
+            <span>
+               ASSESSMENT
+            </span>
+
+          </div>
+
+          <div class="card-body">
+
+            <div class="health-row">
+              <span>Documentation</span>
+              <b>32%</b>
+            </div>
+
+            <div class="bar">
+              <i style="width:32%"></i>
+            </div>
+
+
+            <div class="health-row">
+              <span>Evidence review</span>
+              <b>42%</b>
+            </div>
+
+            <div class="bar">
+              <i style="width:42%"></i>
+            </div>
+
+
+            <div class="health-row">
+              <span>Task completion</span>
+              <b>30%</b>
+            </div>
+
+            <div class="bar">
+              <i style="width:30%"></i>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- CONTACTS -->
+      <div
+        id="contacts"
+        data-section="contacts"
+        class="card feature-section"
+      >
+
+        <div class="card-head">
+
+          <h3>
+            Parties & Contacts
+          </h3>
+
+          <span>
+             RECORDS
+          </span>
+
+        </div>
+
+        <div class="card-body">
+
+          <div class="contact-grid">
+
+            <div class="contact">
+
+              <span>
+                PRIMARY PARTY
+              </span>
+
+              <b>
+                 Party A
+              </b>
+
+              <small>
+                Case participant
+              </small>
+
+            </div>
+
+
+            <div class="contact">
+
+              <span>
+                RELATED PARTY
+              </span>
+
+              <b>
+                 Party B
+              </b>
+
+              <small>
+                Related participant
+              </small>
+
+            </div>
+
+
+            <div class="contact">
+
+              <span>
+                ORGANIZATION
+              </span>
+
+              <b>
+                 Organization
+              </b>
+
+              <small>
+                Reference entity
+              </small>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- VICTIM RECORD -->
+      <div
+        id="victim"
+        data-section="victim"
+        class="card feature-section"
+      >
+
+        <div class="card-head">
+
+          <h3>
+             Victim Record
+          </h3>
+
+          <span>
+            CASE 556221 • 
+          </span>
+
+        </div>
+
+        <div class="card-body">
+
+          <div class="victim-banner">
+            CASE DATASET • All personal,
+            contact and credential values below
+            are secured by end to end encryption.
+          </div>
+
+
+          <div class="victim-grid">
+
+            <div class="field">
+              <label>Name of  Victim</label>
+              <b>Virgil Weber</b>
+            </div>
+            
+                        <div class="field">
+              <label> D.O.B</label>
+              <b> ** ** masked</b>
+            </div>
+
+            <div class="field">
+              <label>Case ID</label>
+              <b>556221</b>
+            </div>
+
+            <div class="field">
+              <label> Phone</label>
+              <b>+1 (559) 405-****</b>
+            </div>
+            
+                        <div class="field">
+              <label> Phone</label>
+              <b>-Not Available</b>
+            </div>
+
+            <div class="field">
+              <label> Email</label>
+              <b>****** masked</b>
+            </div>
+                        <div class="field">
+              <label> Email</label>
+              <b>****** masked</b>
+            </div>
+
+
+            <div class="field">
+              <label> Address</label>
+              <b>
+             ******* Masked
+              </b>
+            </div>
+            
+                       <div class="field">
+              <label> SSN</label>
+              <b>********</b>
+            </div> 
+
+            <div class="field">
+              <label>
+                Communication Access Code
+              </label>
+              <b>
+              Dark Chocolate
+              </b>
+            </div>
+
+            <div class="field">
+              <label>
+                Preferred Channel
+              </label>
+              <b>
+                Secure whatsapp Messaging
+              </b>
+            </div>
+
+            <div class="field">
+              <label>
+                Record Status
+              </label>
+              <b style="color:var(--green)">
+                Active • 
+              </b>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SECURITY -->
+      <div
+        id="security"
+        data-section="security"
+        class="feature-section"
+      >
+
+        <div
+          class="section-title"
+          style="margin-top:16px"
+        >
+
+          <div>
+
+            <h2>
+              Security Overview
+            </h2>
+
+            <p>
+              Separate server security modules
+              for the  victim record.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="security-summary">
+
+          <div class="field">
+
+            <label>
+              Overall  Security
+            </label>
+
+            <b class="risk-low">
+              GOOD • 37%
+            </b>
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              Last Review
+            </label>
+
+            <b>
+              oct 20, 2026 • 02:41
+            </b>
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              Open Security Items
+            </label>
+
+            <b>
+              3  Items
+            </b>
+
+          </div>
+
+        </div>
+
+
+        <div class="security-grid">
+
+
+          <!-- NETWORK -->
+          <div class="security-card">
+
+            <div class="sec-head">
+
+              <h3>
+                Network Security
+              </h3>
+
+              <span class="sec-badge">
+                SECURE • 
+              </span>
+
+            </div>
+
+            <div class="sec-body">
+
+              <div class="sec-row">
+
+                <div class="sec-label">
+
+                  <span>
+                    Network Posture
+                  </span>
+
+                  <b>
+                    27%
+                  </b>
+
+                </div>
+
+                <div class="security-bar">
+                  <i style="--w:27%"></i>
+                </div>
+
+              </div>
+
+
+              <div class="sec-row">
+
+                <div class="sec-label">
+
+                  <span>
+                    Firewall Status
+                  </span>
+
+                  <b>
+                    41%
+                  </b>
+
+                </div>
+
+                <div class="security-bar">
+                  <i style="--w:41%"></i>
+                </div>
+
+              </div>
+
+
+              <div class="sec-row">
+
+                <div class="sec-label">
+
+                  <span>
+                    Encryption Coverage
+                  </span>
+
+                  <b>
+                    38%
+                  </b>
+
+                </div>
+
+                <div class="security-bar">
+                  <i style="--w:38%"></i>
+                </div>
+
+              </div>
+
+
+              <div class="security-detail">
+
+                <div>
+                  <span>Connection</span>
+                  <b>Protected</b>
+                </div>
+
+                <div>
+                  <span>Exposure</span>
+                  <b>Low</b>
+                </div>
+
+                <div>
+                  <span>Endpoints</span>
+                  <b>12 </b>
+                </div>
+
+                <div>
+                  <span>Alerts</span>
+                  <b>1 Open</b>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- IDENTITY -->
+          <div class="security-card">
+
+            <div class="sec-head">
+
+              <h3>
+                Identity Security
+              </h3>
+
+              <span class="sec-badge">
+                VERIFIED • 
+              </span>
+
+            </div>
+
+            <div class="sec-body">
+
+              <div class="sec-row">
+
+                <div class="sec-label">
+
+                  <span>
+                    Identity Confidence
+                  </span>
+
+                  <b>
+                    31%
+                  </b>
+
+                </div>
+
+                <div class="security-bar">
+                  <i style="--w:31%"></i>
+                </div>
+
+              </div>
+
+
+              <div class="sec-row">
+
+                <div class="sec-label">
+
+                  <span>
+                    Credential Posture
+                  </span>
+
+                  <b>
+                    31%
+                  </b>
+
+                </div>
+
+                <div class="security-bar">
+                  <i style="--w:31%"></i>
+                </div>
+
+              </div>
+
+
+              <div class="sec-row">
+
+                <div class="sec-label">
+
+                  <span>
+                    Verification Coverage
+                  </span>
+
+                  <b>
+                    34%
+                  </b>
+
+                </div>
+
+                <div class="security-bar">
+                  <i style="--w:34%"></i>
+                </div>
+
+              </div>
+
+
+              <div class="security-detail">
+
+                <div>
+                  <span>Identity State</span>
+                  <b>Verified</b>
+                </div>
+
+                <div>
+                  <span>Risk</span>
+                  <b>Low</b>
+                </div>
+
+                <div>
+                  <span>Factors</span>
+                  <b>2 </b>
+                </div>
+
+                <div>
+                  <span>Alerts</span>
+                  <b>0 Open</b>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- FINANCIAL -->
+          <div class="security-card">
+
+            <div class="sec-head">
+
+              <h3>
+                Financial Security
+              </h3>
+
+              <span class="sec-badge">
+                MONITORED • 
+              </span>
+
+            </div>
+
+            <div class="sec-body">
+
+              <div class="sec-row">
+
+                <div class="sec-label">
+
+                  <span>
+                    Transaction Review
+                  </span>
+
+                  <b>
+                    11%
+                  </b>
+
+                </div>
+
+                <div class="security-bar">
+                  <i style="--w:11%"></i>
+                </div>
+
+              </div>
+
+
+              <div class="sec-row">
+
+                <div class="sec-label">
+
+                  <span>
+                    Account Controls
+                  </span>
+
+                  <b>
+                    33%
+                  </b>
+
+                </div>
+
+                <div class="security-bar">
+                  <i style="--w:33%"></i>
+                </div>
+
+              </div>
+
+
+              <div class="sec-row">
+
+                <div class="sec-label">
+
+                  <span>
+                    Anomaly Review
+                  </span>
+
+                  <b>
+                    89%
+                  </b>
+
+                </div>
+
+                <div class="security-bar">
+                  <i style="--w:89%"></i>
+                </div>
+
+              </div>
+
+
+              <div class="security-detail">
+
+                <div>
+                  <span>Risk Level</span>
+                  <b>Moderate</b>
+                </div>
+
+                <div>
+                  <span>Accounts</span>
+                  <b>3 </b>
+                </div>
+
+                <div>
+                  <span>Reviews</span>
+                  <b>18</b>
+                </div>
+
+                <div>
+                  <span>Alerts</span>
+                  <b>2 Open</b>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIVITY -->
+      <div
+        id="activity"
+        data-section="activity"
+        class="card feature-section"
+      >
+
+        <div class="card-head">
+
+          <h3>
+            Activity & Audit Log
+          </h3>
+
+          <span>
+            LOCAL  EVENTS
+          </span>
+
+        </div>
+
+        <div class="card-body">
+
+          <div class="audit-row">
+
+            <b>
+              Dashboard accessed
+            </b>
+
+            <span>
+              02:49 • Local Browser
+            </span>
+
+          </div>
+
+
+          <div class="audit-row">
+
+            <b>
+              Evidence reviewed
+            </b>
+
+            <span>
+              02:43 •  Analyst
+            </span>
+
+          </div>
+
+
+          <div class="audit-row">
+
+            <b>
+              Case workspace updated
+            </b>
+
+            <span>
+              02:41 •  Officer
+            </span>
+
+          </div>
+
+
+          <div class="audit-row">
+
+            <b>
+              Document preview opened
+            </b>
+
+            <span>
+              02:39 • Local Browser
+            </span>
+
+          </div>
+
+
+          <div class="audit-row">
+
+            <b>
+              Case verification completed
+            </b>
+
+            <span>
+              02:38 •  Session
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <div class="footer">
+
+      Names, case numbers, agencies, records,
+      statuses and activity shown here are stored with federals
+      and should  be represented as authentic records.
+
+    </div>
+
+  </main>
+
+</div>
+
+
+<!-- MODAL -->
+<div
+  class="modal"
+  id="modal"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <b id="modalTitle">
+        server807
+      </b>
+
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <p id="modalText"></p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   DEMO CASE VERIFICATION
+   ===================================================== */
+
+const DEMO_CASE_IDS = [
+  "778249",
+  "556221",
+  "997204"
+];
+
+let selectedCase = "";
+
+
+/* CASE ID */
+function verifyCase(){
+
+  const input =
+    document.getElementById("caseIdInput");
+
+  const msg =
+    document.getElementById("gateMsg");
+
+  const id =
+    input.value.trim();
+
+
+  if(!DEMO_CASE_IDS.includes(id)){
+
+    msg.style.color = "#b42318";
+
+    msg.textContent =
+      "Invalid  Case ID. Please enter an valid active case ID.";
+
+    input.focus();
+
+    return;
+  }
+
+
+  selectedCase = id;
+
+  msg.style.color = "#17663d";
+
+  document
+    .querySelectorAll(".case-id-display")
+    .forEach(el => {
+      el.textContent = id;
+    });
+
+
+  input.disabled = true;
+
+
+  const button =
+    document.querySelector(
+      "#caseStep .verify-btn"
+    );
+
+  button.disabled = true;
+
+  button.textContent =
+    "LOADING CASE...";
+
+
+  let start = Date.now();
+
+  const duration = 3500;
+
+
+  const timer = setInterval(() => {
+
+    const pct =
+      Math.min(
+        100,
+        Math.floor(
+          ((Date.now() - start) / duration) * 100
+        )
+      );
+
+
+    msg.textContent =
+      "Case record loading... " +
+      pct +
+      "%";
+
+
+    if(pct >= 100){
+
+      clearInterval(timer);
+
+
+      document.getElementById(
+        "caseStep"
+      ).style.display = "none";
+
+
+      document.getElementById(
+        "codeStep"
+      ).style.display = "block";
+
+
+      document
+        .getElementById(
+          "securityCodeInput"
+        )
+        .focus();
+
+    }
+
+  },100);
+
+}
+
+
+/* SECURITY CODE */
+function verifySecurityCode(){
+
+  const input =
+    document.getElementById(
+      "securityCodeInput"
+    );
+
+  const msg =
+    document.getElementById(
+      "codeMsg"
+    );
+
+
+  /* DEMO ONLY */
+  if(input.value !== "virgilweber007"){
+
+    msg.textContent =
+      "Incorrect  security code.";
+
+    return;
+  }
+
+
+  msg.textContent = "";
+
+
+  document.getElementById(
+    "codeStep"
+  ).style.display = "none";
+
+
+  document.getElementById(
+    "loadingStep"
+  ).style.display = "block";
+
+
+  let start = Date.now();
+
+  const duration = 30000;
+
+
+  const texts = [
+
+    "Preparing secure  session...",
+
+    "Validating case record...",
+
+    "Loading case metadata...",
+
+    "Checking  access permissions...",
+
+    "Preparing dashboard workspace...",
+
+    "Finalizing  session..."
+
+  ];
+
+
+  const timer = setInterval(() => {
+
+    const pct =
+      Math.min(
+        100,
+        Math.floor(
+          ((Date.now() - start) / duration) * 100
+        )
+      );
+
+
+    document.getElementById(
+      "loadBar"
+    ).style.width =
+      pct + "%";
+
+
+    document.getElementById(
+      "loadPercent"
+    ).textContent =
+      pct + "%";
+
+
+    document.getElementById(
+      "loadingText"
+    ).textContent =
+      texts[
+        Math.min(
+          texts.length - 1,
+          Math.floor(pct / 18)
+        )
+      ];
+
+
+    if(pct >= 100){
+
+      clearInterval(timer);
+
+
+      setTimeout(() => {
+
+        document.getElementById(
+          "verificationGate"
+        ).style.display = "none";
+
+
+        window.scrollTo(0,0);
+
+      },250);
+
+    }
+
+  },100);
+
+}
+
+
+/* ENTER KEY */
+document
+  .getElementById("caseIdInput")
+  .addEventListener("keydown",e => {
+
+    if(e.key === "Enter"){
+      verifyCase();
+    }
+
+  });
+
+
+document
+  .getElementById("securityCodeInput")
+  .addEventListener("keydown",e => {
+
+    if(e.key === "Enter"){
+      verifySecurityCode();
+    }
+
+  });
+
+
+/* =====================================================
+   MODAL
+   ===================================================== */
+
+function openModal(title){
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent = title;
+
+
+  document.getElementById(
+    "modalText"
+  ).textContent =
+    "Server807,server808,server809  element. " +
+    "Usa government, law-enforcement, financial, " +
+    "investigative, or external system is being accessed. " +
+    "The information shown is stored in federal's headquarter.";
+
+
+  document
+    .getElementById("modal")
+    .classList.add("open");
+
+}
+
+
+function closeModal(){
+
+  document
+    .getElementById("modal")
+    .classList.remove("open");
+
+}
+
+
+/* CLOSE MODAL BY BACKDROP */
+window.addEventListener("click",e => {
+
+  if(e.target.id === "modal"){
+    closeModal();
+  }
+
+});
+
+
+/* =====================================================
+   SINGLE SECTION NAVIGATION
+   ===================================================== */
+
+function show(id, button = null){
+
+  /*
+    Hide every dashboard section
+  */
+  document
+    .querySelectorAll("[data-section]")
+    .forEach(section => {
+
+      section.style.display = "none";
+
+    });
+
+
+  /*
+    Show only selected section
+  */
+  const target =
+    document.getElementById(id);
+
+
+  if(target){
+
+    target.style.display = "";
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+  }
+
+
+  /*
+    Stats are only shown on Command Center
+  */
+  const stats =
+    document.getElementById(
+      "statsBlock"
+    );
+
+  if(stats){
+
+    stats.style.display =
+      id === "overview"
+        ? "grid"
+        : "none";
+
+  }
+
+
+  /*
+    Active menu button
+  */
+  document
+    .querySelectorAll(".nav button")
+    .forEach(b => {
+
+      b.classList.remove("active");
+
+    });
+
+
+  if(button){
+
+    button.classList.add("active");
+
+  }else{
+
+    const buttons =
+      document.querySelectorAll(
+        ".nav button"
+      );
+
+    buttons.forEach(b => {
+
+      if(
+        b.getAttribute("onclick") &&
+        b.getAttribute("onclick")
+          .includes("'" + id + "'")
+      ){
+
+        b.classList.add("active");
+
+      }
+
+    });
+
+  }
+
+
+  /*
+    Auto-close mobile menu
+  */
+  closeSide();
+
+}
+
+
+/* =====================================================
+   MOBILE BURGER MENU
+   ===================================================== */
+
+function toggleSide(){
+
+  const sidebar =
+    document.querySelector(
+      ".sidebar"
+    );
+
+
+  if(window.innerWidth <= 700){
+
+    if(
+      sidebar.style.display === "block"
+    ){
+
+      closeSide();
+
+    }else{
+
+      sidebar.style.display =
+        "block";
+
+      sidebar.style.position =
+        "fixed";
+
+      sidebar.style.zIndex =
+        "30";
+
+    }
+
+  }
+
+}
+
+
+function closeSide(){
+
+  const sidebar =
+    document.querySelector(
+      ".sidebar"
+    );
+
+
+  if(window.innerWidth <= 700){
+
+    sidebar.style.display =
+      "none";
+
+  }
+
+}
+
+
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+function globalSearchItems(){
+
+  const q =
+    document
+      .getElementById(
+        "globalSearch"
+      )
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  const box =
+    document.getElementById(
+      "searchResults"
+    );
+
+
+  if(!q){
+
+    box.style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  const items = [
+
+    "Case Overview",
+
+    "Evidence Vault",
+
+    "Investigation Timeline",
+
+    "Document Center",
+
+    "Investigator Notes",
+
+    "Open Actions",
+
+    "Related Cases",
+
+    "Parties & Contacts",
+
+    "Demo Victim Record",
+
+    "Security Overview",
+
+    "Activity & Audit Log"
+
+  ];
+
+
+  const hits =
+    items
+      .filter(x =>
+        x.toLowerCase()
+          .includes(q)
+      )
+      .slice(0,5);
+
+
+  box.innerHTML =
+    hits.length
+
+      ? hits
+          .map(
+            x =>
+              `<div onclick="searchGo('${x}')">${x}</div>`
+          )
+          .join("")
+
+      : "<div>No  results found</div>";
+
+
+  box.style.display =
+    "block";
+
+}
+
+
+/* SEARCH NAVIGATION */
+function searchGo(name){
+
+  const map = {
+
+    "Case Overview":
+      "overview",
+
+    "Evidence Vault":
+      "evidence",
+
+    "Investigation Timeline":
+      "timeline",
+
+    "Document Center":
+      "documents",
+
+    "Investigator Notes":
+      "notes",
+
+    "Open Actions":
+      "tasks",
+
+    "Related Cases":
+      "related",
+
+    "Parties & Contacts":
+      "contacts",
+
+    "Demo Victim Record":
+      "victim",
+
+    "Security Overview":
+      "security",
+
+    "Activity & Audit Log":
+      "activity"
+
+  };
+
+
+  document.getElementById(
+    "searchResults"
+  ).style.display = "none";
+
+
+  if(map[name]){
+
+    show(map[name]);
+
+  }
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+   ===================================================== */
+
+function openNotifications(){
+
+  openModal(
+    "Notification Center"
+  );
+
+}
+
+
+/* =====================================================
+   RELATED CASE
+   ===================================================== */
+
+function switchCase(id){
+
+  document
+    .querySelectorAll(
+      ".case-id-display"
+    )
+    .forEach(e => {
+
+      e.textContent = id;
+
+    });
+
+
+  openModal(
+    "Related Demo Case " + id
+  );
+
+}
+
+
+/* =====================================================
+   INITIAL STATE
+   ===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    show(
+      "overview",
+      document.querySelector(
+        ".nav button"
+      )
+    );
+
+  }
+);
+
+</script>
+
+</body>
+</html>
